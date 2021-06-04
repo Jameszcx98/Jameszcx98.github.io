@@ -42,18 +42,18 @@
   </entry>
   
   <entry>
-    <title>Hello World</title>
-    <link href="https://jameszcx98.github.io/2021/05/31/hello-world/"/>
-    <id>https://jameszcx98.github.io/2021/05/31/hello-world/</id>
-    <published>2021-05-31T15:12:00.410Z</published>
-    <updated>2021-05-31T15:12:00.410Z</updated>
+    <title>Hello-World</title>
+    <link href="https://jameszcx98.github.io/2021/06/01/hello-world/"/>
+    <id>https://jameszcx98.github.io/2021/06/01/hello-world/</id>
+    <published>2021-06-01T06:49:19.000Z</published>
+    <updated>2021-06-04T07:30:40.901Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt;</summary>
+    <summary type="html">&lt;h1 id=&quot;Hello-Hexo&quot;&gt;&lt;a href=&quot;#Hello-Hexo&quot; class=&quot;headerlink&quot; title=&quot;Hello Hexo&quot;&gt;&lt;/a&gt;Hello Hexo&lt;/h1&gt;&lt;p&gt;这是我第一次使用Hexo来记录我的生活。众所周知，程序员通常使用hello</summary>
         
       
     
