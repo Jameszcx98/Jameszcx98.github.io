@@ -6,7 +6,7 @@
   <link href="https://jameszcx98.github.io/atom.xml" rel="self"/>
   
   <link href="https://jameszcx98.github.io/"/>
-  <updated>2021-05-31T15:12:00.410Z</updated>
+  <updated>2021-06-04T06:39:48.532Z</updated>
   <id>https://jameszcx98.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>5W2H | Redis</title>
+    <link href="https://jameszcx98.github.io/2021/06/04/redis/"/>
+    <id>https://jameszcx98.github.io/2021/06/04/redis/</id>
+    <published>2021-06-04T07:39:00.000Z</published>
+    <updated>2021-06-04T06:39:48.532Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;redis&quot;&gt;&lt;a href=&quot;#redis&quot; class=&quot;headerlink&quot; title=&quot;redis&quot;&gt;&lt;/a&gt;redis&lt;/h1&gt;&lt;h2 id=&quot;为什么要用nosql&quot;&gt;&lt;a href=&quot;#为什么要用nosql&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="后端笔记" scheme="https://jameszcx98.github.io/categories/%E5%90%8E%E7%AB%AF%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="数据库" scheme="https://jameszcx98.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+  </entry>
   
   <entry>
     <title>Hello World</title>
@@ -29,32 +54,6 @@
         
         
     <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt;</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="https://jameszcx98.github.io/2021/05/22/redis/"/>
-    <id>https://jameszcx98.github.io/2021/05/22/redis/</id>
-    <published>2021-05-22T11:52:15.523Z</published>
-    <updated>2021-06-04T06:34:35.859Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;title: redis
-date: {{ date }}
-top: false
-cover: false
-password:
-toc:</summary>
         
       
     
