@@ -519,7 +519,7 @@
 <p>4.如今最近的年代</p>
 </blockquote>
 <p>数据量大，且发生变化快。MySQL为代表的关系型数据库已经不能满足业务了（如定位信息，排行榜信息）数据库的IO压力下，表几乎没法变更大。</p>
-<p>![image-20210522204209224](/Users/jameszhang/Library/Application Support/typora-user-images/image-20210522204209224.png)</p>
+<p><img src="redis/image-20210522204209224.png" alt="image-20210522204209224"></p>
 <center>当今互联网架构图</center>
 
 <blockquote>
@@ -813,6 +813,43 @@ zcount salary n1 n2<span aria-hidden="true" class="line-numbers-rows"><span></sp
 <p>对set集合进行排序，还可以存储班级成绩，工资表排序，</p>
 <p>对代权重的值进行判断，如普通消息为1，重要消息为2</p>
 <p>排行榜应用场景</p>
+<p><strong>Steam</strong></p>
+<p>管道技术，redis有订阅和发布的功能，可以做消息队列，但是不能持久化，关机之后消息会丢失</p>
+<p>Redis Stream是一个消息链表，其结构如下所示：</p>
+<p><img src="redis/image-20210618142359319.png" alt="image-20210618142359319"></p>
+<blockquote>
+<p><strong>消息链表结构：</strong></p>
+<ul>
+<li><strong>Consumer Group</strong> ：消费组，使用 XGROUP CREATE 命令创建，一个消费组有多个消费者(Consumer)。</li>
+<li><strong>last_delivered_id</strong> ：游标，每个消费组会有个游标 last_delivered_id，任意一个消费者读取了消息都会使游标 last_delivered_id 往前移动。</li>
+<li><strong>pending_ids</strong> ：消费者(Consumer)的状态变量，作用是维护消费者的未确认的 id。 pending_ids 记录了当前已经被客户端读取的消息，但是还没有 ack (Acknowledge character：确认字符）。</li>
+</ul>
+<p><strong>消息队列相关命令：</strong></p>
+<ul>
+<li><strong>XADD</strong> - 添加消息到末尾</li>
+<li><strong>XTRIM</strong> - 对流进行修剪，限制长度</li>
+<li><strong>XDEL</strong> - 删除消息</li>
+<li><strong>XLEN</strong> - 获取流包含的元素数量，即消息长度</li>
+<li><strong>XRANGE</strong> - 获取消息列表，会自动过滤已经删除的消息</li>
+<li><strong>XREVRANGE</strong> - 反向获取消息列表，ID 从大到小</li>
+<li><strong>XREAD</strong> - 以阻塞或非阻塞方式获取消息列表</li>
+</ul>
+<p><strong>消费者组相关命令：</strong></p>
+<ul>
+<li><strong>XGROUP CREATE</strong> - 创建消费者组</li>
+<li><strong>XREADGROUP GROUP</strong> - 读取消费者组中的消息</li>
+<li><strong>XACK</strong> - 将消息标记为”已处理”</li>
+<li><strong>XGROUP SETID</strong> - 为消费者组设置新的最后递送消息ID</li>
+<li><strong>XGROUP DELCONSUMER</strong> - 删除消费者</li>
+<li><strong>XGROUP DESTROY</strong> - 删除消费者组</li>
+<li><strong>XPENDING</strong> - 显示待处理消息的相关信息</li>
+<li><strong>XCLAIM</strong> - 转移消息的归属权</li>
+<li><strong>XINFO</strong> - 查看流和消费者组的相关信息；</li>
+<li><strong>XINFO GROUPS</strong> - 打印消费者组的信息；</li>
+<li><strong>XINFO STREAM</strong> - 打印流信息</li>
+</ul>
+<p>具体详见<a target="_blank" rel="noopener" href="https://www.runoob.com/redis/redis-stream.html">https://www.runoob.com/redis/redis-stream.html</a></p>
+</blockquote>
 <h2 id="三种特殊数据类型"><a href="#三种特殊数据类型" class="headerlink" title="三种特殊数据类型"></a>三种特殊数据类型</h2><p><strong>geospatial 地理位置</strong></p>
 <p>应用场景：</p>
 <p>朋友的定位、附近的人、打车距离计算</p>
@@ -881,19 +918,19 @@ bitcount sign<span aria-hidden="true" class="line-numbers-rows"><span></span><sp
 <blockquote>
 <p>正常执行事务</p>
 </blockquote>
-<p>![image-20210603193209476](/Users/jameszhang/Library/Application Support/typora-user-images/image-20210603193209476.png)</p>
+<p><img src="redis/image-20210603193209476.png" alt="image-20210603193209476"></p>
 <blockquote>
 <p>放弃事务</p>
 </blockquote>
-<p>![image-20210603193530871](/Users/jameszhang/Library/Application Support/typora-user-images/image-20210603193530871.png)</p>
+<p><img src="redis/image-20210603193530871.png" alt="image-20210603193530871"></p>
 <blockquote>
 <p>编译型异常（代码有问题！命令有错），事务中所有的命令都不会被执行</p>
 </blockquote>
-<p>![image-20210603194435757](/Users/jameszhang/Library/Application Support/typora-user-images/image-20210603194435757.png)</p>
+<p><img src="redis/image-20210603194435757.png" alt="image-20210603194435757"></p>
 <blockquote>
 <p>运行时异常，如果事务队列中存在语法性，那么执行命令的时候，其他命令可以正常执行的。</p>
 </blockquote>
-<p>![image-20210603194548018](/Users/jameszhang/Library/Application Support/typora-user-images/image-20210603194548018.png)</p>
+<p><img src="redis/image-20210603194548018.png" alt="image-20210603194548018"></p>
 <blockquote>
 <p>监控watch：</p>
 </blockquote>
@@ -910,8 +947,30 @@ bitcount sign<span aria-hidden="true" class="line-numbers-rows"><span></span><sp
 <blockquote>
 <p>Redis测监视测试：</p>
 </blockquote>
-<p>![image-20210603200019697](/Users/jameszhang/Library/Application Support/typora-user-images/image-20210603200019697.png)</p>
+<p><img src="redis/image-20210603200019697.png" alt="image-20210603200019697"></p>
 <p>在执行事务的时候，其他线程对money字段进行了修改，由于监视了money字段，导致事务执行失败，保证了数据的正确性。之后先unwatch解锁，在watch加锁。</p>
+<h2 id="分区"><a href="#分区" class="headerlink" title="分区"></a>分区</h2><blockquote>
+<p>分区是分隔数据到多个Redis实例的处理过程，因此每个实例只保存key的一个子集</p>
+</blockquote>
+<p>分区的优势：</p>
+<ul>
+<li>通过利用多台计算机内存和值，允许我们构造更大的数据库</li>
+<li>通过多核和多台计算机，拓展计算能力；通过多台计算机和网络适配器，拓展网络带宽</li>
+</ul>
+<p>分区的不足：</p>
+<ul>
+<li>涉及多个key的操作通常是不被支持的。举例来说，当两个set映射到不同的redis实例上时，你就不能对这两个set执行交集操作。</li>
+<li>涉及多个key的redis事务不能使用。</li>
+<li>当使用分区时，数据处理较为复杂，比如你需要处理多个rdb/aof文件，并且从多个实例和主机备份持久化文件。</li>
+<li>增加或删除容量也比较复杂。redis集群大多数支持在运行时增加、删除节点的透明数据平衡的能力，但是类似于客户端分区、代理等其他系统则不支持这项特性。然而，一种叫做presharding的技术对此是有帮助的。</li>
+</ul>
+<blockquote>
+<p>分区类型：</p>
+</blockquote>
+<ol>
+<li>范围分区（根据id的范围划分）</li>
+<li>哈希分区（对key的值进行hash，之后进行取余操作）</li>
+</ol>
 <h2 id="Jedis"><a href="#Jedis" class="headerlink" title="Jedis"></a>Jedis</h2><blockquote>
 <p>Jedis是Redis官方推荐的Java连接工具，使用Java操作Redis的中间件。</p>
 </blockquote>
@@ -958,6 +1017,66 @@ jsonObject<span class="token punctuation">.</span><span class="token function">p
 jedis<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="SpringBoot整合"><a href="#SpringBoot整合" class="headerlink" title="SpringBoot整合"></a>SpringBoot整合</h2><p>springboot操作数据库，使用springData框架。</p>
+<blockquote>
+<p>引入依赖</p>
+</blockquote>
+<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-boot-starter-data-redis<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>说明：在SpringBoot2.x之后，原来使用的jedis被替换成了lettuce</p>
+<p>原因：</p>
+<ul>
+<li>jedis：采用的直连server的模式，多个线程操作的话，是不安全的，如果想要避免不安全的，要使用jedis pool链接池，更像BIO。</li>
+<li>采用netty，实例可以再多个线程中进行共享，不存在线程不安全的情况。更像NIO模式</li>
+</ul>
+<p>==Springboot所有的配置类，都有一个自动配置类 RedisAutoConfiguration 自动配置类都会绑定一个properties 配置文件 RedisProperties==</p>
+<blockquote>
+<p>配置</p>
+</blockquote>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Bean</span>
+	<span class="token annotation punctuation">@ConditionalOnMissingBean</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"redisTemplate"</span><span class="token punctuation">)</span>
+	<span class="token annotation punctuation">@ConditionalOnSingleCandidate</span><span class="token punctuation">(</span><span class="token class-name">RedisConnectionFactory</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+	<span class="token keyword">public</span> <span class="token class-name">RedisTemplate</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Object</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">&gt;</span></span> <span class="token function">redisTemplate</span><span class="token punctuation">(</span><span class="token class-name">RedisConnectionFactory</span> redisConnectionFactory<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">//默认的RedisTemplate没有过多的设置，redis对象是需要序列化的。</span>
+    <span class="token comment">//两个范性都是Object类型，后期我们需要强转类型。</span>
+		<span class="token class-name">RedisTemplate</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Object</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">&gt;</span></span> template <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RedisTemplate</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		template<span class="token punctuation">.</span><span class="token function">setConnectionFactory</span><span class="token punctuation">(</span>redisConnectionFactory<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">return</span> template<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token annotation punctuation">@Bean</span>
+	<span class="token annotation punctuation">@ConditionalOnMissingBean</span><span class="token comment">//由于String类型是我们最常使用的类型，所以单独提出了一个bean类型</span>
+	<span class="token annotation punctuation">@ConditionalOnSingleCandidate</span><span class="token punctuation">(</span><span class="token class-name">RedisConnectionFactory</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+	<span class="token keyword">public</span> <span class="token class-name">StringRedisTemplate</span> <span class="token function">stringRedisTemplate</span><span class="token punctuation">(</span><span class="token class-name">RedisConnectionFactory</span> redisConnectionFactory<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token class-name">StringRedisTemplate</span> template <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringRedisTemplate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		template<span class="token punctuation">.</span><span class="token function">setConnectionFactory</span><span class="token punctuation">(</span>redisConnectionFactory<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">return</span> template<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>上手测试</p>
+</blockquote>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">RedisConnection</span> connection<span class="token operator">=</span>redisTemplate<span class="token punctuation">.</span><span class="token function">getConnectionFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getConnection</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+connection<span class="token punctuation">.</span><span class="token function">flushDb</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+connection<span class="token punctuation">.</span><span class="token function">flushAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+
+<span class="token comment">//其他操作</span>
+<span class="token comment">//操作字符串</span>
+redisTemplate<span class="token punctuation">.</span><span class="token function">opsForValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">"mykey"</span><span class="token punctuation">,</span><span class="token string">"ffff"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//操作List</span>
+redisTemplate<span class="token punctuation">.</span>opsForList<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">"xx"</span><span class="token punctuation">,</span><span class="token string">"yy"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+redisTemplate<span class="token punctuation">.</span><span class="token function">opsForSet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+redisTemplate<span class="token punctuation">.</span><span class="token function">opsForHash</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+redisTemplate<span class="token punctuation">.</span><span class="token function">opsForZSet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+redisTemplate<span class="token punctuation">.</span><span class="token function">opsForGeo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+redisTemplate<span class="token punctuation">.</span><span class="token function">opsForHyperLogLog</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">//真实的开发中一般都使用json来传递对象，所有的对象都需要序列化</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
                 
