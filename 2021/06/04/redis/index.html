@@ -519,7 +519,7 @@
 <p>4.如今最近的年代</p>
 </blockquote>
 <p>数据量大，且发生变化快。MySQL为代表的关系型数据库已经不能满足业务了（如定位信息，排行榜信息）数据库的IO压力下，表几乎没法变更大。</p>
-<p><img src="redis/image-20210522204209224.png" alt="image-20210522204209224"></p>
+<p><img src="/2021/06/04/redis/image-20210522204209224.png" alt="image-20210522204209224"></p>
 <center>当今互联网架构图</center>
 
 <blockquote>
@@ -816,7 +816,7 @@ zcount salary n1 n2<span aria-hidden="true" class="line-numbers-rows"><span></sp
 <p><strong>Steam</strong></p>
 <p>管道技术，redis有订阅和发布的功能，可以做消息队列，但是不能持久化，关机之后消息会丢失</p>
 <p>Redis Stream是一个消息链表，其结构如下所示：</p>
-<p><img src="redis/image-20210618142359319.png" alt="image-20210618142359319"></p>
+<p><img src="/2021/06/04/redis/image-20210618142359319.png" alt="image-20210618142359319"></p>
 <blockquote>
 <p><strong>消息链表结构：</strong></p>
 <ul>
@@ -918,19 +918,19 @@ bitcount sign<span aria-hidden="true" class="line-numbers-rows"><span></span><sp
 <blockquote>
 <p>正常执行事务</p>
 </blockquote>
-<p><img src="redis/image-20210603193209476.png" alt="image-20210603193209476"></p>
+<p><img src="/2021/06/04/redis/image-20210603193209476.png" alt="image-20210603193209476"></p>
 <blockquote>
 <p>放弃事务</p>
 </blockquote>
-<p><img src="redis/image-20210603193530871.png" alt="image-20210603193530871"></p>
+<p><img src="/2021/06/04/redis/image-20210603193530871.png" alt="image-20210603193530871"></p>
 <blockquote>
 <p>编译型异常（代码有问题！命令有错），事务中所有的命令都不会被执行</p>
 </blockquote>
-<p><img src="redis/image-20210603194435757.png" alt="image-20210603194435757"></p>
+<p><img src="/2021/06/04/redis/image-20210603194435757.png" alt="image-20210603194435757"></p>
 <blockquote>
 <p>运行时异常，如果事务队列中存在语法性，那么执行命令的时候，其他命令可以正常执行的。</p>
 </blockquote>
-<p><img src="redis/image-20210603194548018.png" alt="image-20210603194548018"></p>
+<p><img src="/2021/06/04/redis/image-20210603194548018.png" alt="image-20210603194548018"></p>
 <blockquote>
 <p>监控watch：</p>
 </blockquote>
@@ -947,7 +947,7 @@ bitcount sign<span aria-hidden="true" class="line-numbers-rows"><span></span><sp
 <blockquote>
 <p>Redis测监视测试：</p>
 </blockquote>
-<p><img src="redis/image-20210603200019697.png" alt="image-20210603200019697"></p>
+<p><img src="/2021/06/04/redis/image-20210603200019697.png" alt="image-20210603200019697"></p>
 <p>在执行事务的时候，其他线程对money字段进行了修改，由于监视了money字段，导致事务执行失败，保证了数据的正确性。之后先unwatch解锁，在watch加锁。</p>
 <h2 id="分区"><a href="#分区" class="headerlink" title="分区"></a>分区</h2><blockquote>
 <p>分区是分隔数据到多个Redis实例的处理过程，因此每个实例只保存key的一个子集</p>
