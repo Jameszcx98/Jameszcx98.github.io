@@ -474,7 +474,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="elasticsearch"><a href="#elasticsearch" class="headerlink" title="elasticsearch"></a>elasticsearch</h1><ol>
+                <h1 id="elasticsearch"><a href="#elasticsearch" class="headerlink" title="elasticsearch"></a>elasticsearch</h1><h2 id="启动步骤"><a href="#启动步骤" class="headerlink" title="启动步骤"></a>启动步骤</h2><ol>
 <li><strong>解析项目文件</strong></li>
 </ol>
 <blockquote>
@@ -583,6 +583,143 @@ http.cors.allow-origin: "*"<span aria-hidden="true" class="line-numbers-rows"><s
 </blockquote>
 <p>就是数据库。</p>
 <p>索引是映射类型的容器，elasticsearch中的索引是一个非常大的文档集合，索引存储了映射类型的字段和其他设置，然后他们被存储到了各个分片上。</p>
+<h2 id="Rest-查询"><a href="#Rest-查询" class="headerlink" title="Rest 查询"></a>Rest 查询</h2><table>
+<thead>
+<tr>
+<th>method</th>
+<th>url地址</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PUT</td>
+<td>localhost：9200/索引名称/类型名称/文档id</td>
+<td>创建文档（指定文档id）</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>localhost：9200/索引名称/类型名称</td>
+<td>创建文档（随机id）</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>localhost：9200/索引名称/类型名称/文档id/_update</td>
+<td>修改文档</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>localhost：9200/索引名称/类型名称/文档id</td>
+<td>删除文档</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>localhost：9200/索引名称/类型名称/文档id</td>
+<td>查询文档通过文档id</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>localhost：9200/索引名称/类型名称/_search</td>
+<td>查询所有的数据</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>基础测试</p>
+</blockquote>
+<ol>
+<li><strong>创建索引规则</strong></li>
+</ol>
+<p><img src="/2021/06/24/elasticsearch/image-20210627223333504.png" alt="image-20210627223333504"></p>
+<ol start="2">
+<li><strong>es中的数据类型</strong></li>
+</ol>
+<p><img src="/2021/06/24/elasticsearch/image-20210627223441909.png" alt="image-20210627223441909"></p>
+<ol start="3">
+<li><strong>查询数据库</strong></li>
+</ol>
+<ul>
+<li><p>get xxx</p>
+</li>
+<li><p>get _cat/(通过_cat命令可以获得当前数据库的信息)</p>
+</li>
+</ul>
+<ol start="4">
+<li><strong>修改数据</strong></li>
+</ol>
+<ul>
+<li>提交还是用put（会增加版本号，然后状态改成updated）弊端是修改需要重新提交所有的字段</li>
+</ul>
+<p><img src="/2021/06/24/elasticsearch/image-20210627224224977.png" alt="image-20210627224224977"></p>
+<ul>
+<li>使用post，可以部分修改</li>
+</ul>
+<p><img src="/2021/06/24/elasticsearch/image-20210627224540518.png" alt="image-20210627224540518"></p>
+<ol start="5">
+<li><strong>删除索引</strong></li>
+</ol>
+<ul>
+<li>通过DELETE命令实现删除，根据请求判断是删除索引还是删除文档信息</li>
+</ul>
+<ol start="6">
+<li><strong>查询（排序，分页，高亮，模糊查询，精确查询，多条件查询）</strong></li>
+</ol>
+<ul>
+<li>查询结果展示</li>
+</ul>
+<p><img src="/2021/06/24/elasticsearch/image-20210628083606784.png" alt="image-20210628083606784"></p>
+<ul>
+<li>查询结构体显示，_source结果过滤，match匹配条件（同一字段值的多匹配，条件之间用空格隔开）</li>
+</ul>
+<p><img src="/2021/06/24/elasticsearch/image-20210628084409357.png" alt="image-20210628084409357"></p>
+<p><img src="/2021/06/24/elasticsearch/image-20210628091522027.png" alt="image-20210628091522027"></p>
+<ul>
+<li>排序</li>
+</ul>
+<p><img src="/2021/06/24/elasticsearch/image-20210628084602769.png" alt="image-20210628084602769"></p>
+<ul>
+<li>分页查询（from是开始的序号，size是数据的条数）</li>
+</ul>
+<p><img src="/2021/06/24/elasticsearch/image-20210628084738816.png" alt="image-20210628084738816"></p>
+<ul>
+<li>精确查询与分词器查询</li>
+</ul>
+<p>关于查询分词：</p>
+<ul>
+<li><p>term，对于查询字段直接查询精确的（直接通过倒排索引指定的词条进程精确的查找）</p>
+</li>
+<li><p>match，对于查询字段会使用分词器查询（先分析文档，然后通过分析的文档进行）</p>
+</li>
+</ul>
+<p>两个数据类型：</p>
+<ul>
+<li>text（可以被分词器解析）</li>
+<li>keyword（不能被分词器解析）</li>
+</ul>
+<p><img src="/2021/06/24/elasticsearch/image-20210628124403005.png" alt="image-20210628124403005"></p>
+<ul>
+<li>使用分词器</li>
+</ul>
+<p><img src="/2021/06/24/elasticsearch/image-20210628124117491.png" alt="image-20210628124117491"></p>
+<p>keyword：不使用分词器，作为整体</p>
+<p>standard：标准模式</p>
+<ul>
+<li>布尔值查询，就是复杂查询（需要and、or、not等连接词）</li>
+</ul>
+<p><img src="/2021/06/24/elasticsearch/image-20210628090201971.png" alt="image-20210628090201971"></p>
+<pre><code>    1. 多条件查询
+</code></pre>
+<p>must（and），所有的条件都要符合where id=1 and name=xxx</p>
+<p><img src="/2021/06/24/elasticsearch/image-20210628090353766.png" alt="image-20210628090353766"></p>
+<p>should（or），满足一个条件就可以where id=1 or name=xxx</p>
+<p><img src="/2021/06/24/elasticsearch/image-20210628090810945.png" alt="image-20210628090810945"></p>
+<p>must_not（not），不满足条件的数据</p>
+<p><img src="/2021/06/24/elasticsearch/image-20210628090944632.png" alt="image-20210628090944632"></p>
+<p>过滤器filter</p>
+<p>范围查询（gt大于，gte大于等于，It小于，Ite小于等于）</p>
+<p><img src="/2021/06/24/elasticsearch/image-20210628091106443.png" alt="image-20210628091106443"></p>
+<ul>
+<li>高亮查询</li>
+</ul>
+<p><img src="/2021/06/24/elasticsearch/image-20210628125244946.png" alt="image-20210628125244946"></p>
 <h2 id="整合springboot"><a href="#整合springboot" class="headerlink" title="整合springboot"></a>整合springboot</h2><p>注意点：</p>
 <ol>
 <li>需要查看es依赖的版本是否与es的版本一致</li>
