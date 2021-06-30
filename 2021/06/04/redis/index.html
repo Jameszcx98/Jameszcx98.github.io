@@ -1057,6 +1057,69 @@ jedis<span class="token punctuation">.</span><span class="token function">close<
 		<span class="token keyword">return</span> template<span class="token punctuation">;</span>
 	<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<p>jedis配置</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Configuration</span>
+<span class="token annotation punctuation">@ConfigurationProperties</span><span class="token punctuation">(</span>prefix <span class="token operator">=</span> <span class="token string">"resource-manage.spring.redis"</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Data</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RedisConfigRM</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">int</span> database<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> host<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> port<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> password<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> timeout<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> maxActive<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">long</span> maxWait<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">long</span> shutdownTimeout<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> maxIdle<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> minIdle<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">RedisConnectionFactory</span> <span class="token function">getRedisConnectionFactory</span><span class="token punctuation">(</span><span class="token class-name">String</span> hostName<span class="token punctuation">,</span> <span class="token keyword">int</span> port<span class="token punctuation">,</span>
+                                                            <span class="token class-name">String</span> password<span class="token punctuation">,</span> <span class="token keyword">int</span> maxIdle<span class="token punctuation">,</span> <span class="token keyword">int</span> maxTotal<span class="token punctuation">,</span> <span class="token keyword">int</span> index<span class="token punctuation">,</span>
+                                                            <span class="token keyword">long</span> maxWaitMillis<span class="token punctuation">,</span><span class="token keyword">int</span> minIdle<span class="token punctuation">,</span><span class="token keyword">long</span> shutdown<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">// 是负责建立Factory的连接工厂类</span>
+        <span class="token class-name">RedisStandaloneConfiguration</span> redisStandaloneConfiguration <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RedisStandaloneConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        redisStandaloneConfiguration<span class="token punctuation">.</span><span class="token function">setHostName</span><span class="token punctuation">(</span>hostName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        redisStandaloneConfiguration<span class="token punctuation">.</span><span class="token function">setPort</span><span class="token punctuation">(</span>port<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span><span class="token class-name">StringUtils</span><span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span>password<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            redisStandaloneConfiguration<span class="token punctuation">.</span><span class="token function">setPassword</span><span class="token punctuation">(</span><span class="token class-name">RedisPassword</span><span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>password<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>index <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            redisStandaloneConfiguration<span class="token punctuation">.</span><span class="token function">setDatabase</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+       <span class="token comment">//设置连接池</span>
+        <span class="token class-name">JedisPoolConfig</span> jedisPoolConfig <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">JedisPoolConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">//最大连接数</span>
+        jedisPoolConfig<span class="token punctuation">.</span><span class="token function">setMaxTotal</span><span class="token punctuation">(</span>maxTotal<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        jedisPoolConfig<span class="token punctuation">.</span><span class="token function">setMaxIdle</span><span class="token punctuation">(</span>maxIdle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">//最小空闲连接数</span>
+        jedisPoolConfig<span class="token punctuation">.</span><span class="token function">setMinIdle</span><span class="token punctuation">(</span>minIdle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">//当池内没有可用的连接时，最大等待时间</span>
+        jedisPoolConfig<span class="token punctuation">.</span><span class="token function">setMaxWaitMillis</span><span class="token punctuation">(</span>maxWaitMillis<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        jedisPoolConfig<span class="token punctuation">.</span><span class="token function">setEvictorShutdownTimeoutMillis</span><span class="token punctuation">(</span>shutdown<span class="token operator">*</span><span class="token number">1000L</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">JedisClientConfiguration<span class="token punctuation">.</span>JedisPoolingClientConfigurationBuilder</span> jpcb <span class="token operator">=</span>
+               <span class="token punctuation">(</span><span class="token class-name">JedisClientConfiguration<span class="token punctuation">.</span>JedisPoolingClientConfigurationBuilder</span><span class="token punctuation">)</span><span class="token class-name">JedisClientConfiguration</span><span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">//指定jedisPoolConifig来修改默认的连接池构造器（真麻烦，滥用设计模式！）</span>
+        jpcb<span class="token punctuation">.</span><span class="token function">poolConfig</span><span class="token punctuation">(</span>jedisPoolConfig<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">//通过构造器来构造jedis客户端配置</span>
+        <span class="token class-name">JedisClientConfiguration</span> jedisClientConfiguration <span class="token operator">=</span> jpcb<span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">JedisConnectionFactory</span><span class="token punctuation">(</span>redisStandaloneConfiguration<span class="token punctuation">,</span> jedis<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <blockquote>
 <p>上手测试</p>
 </blockquote>
