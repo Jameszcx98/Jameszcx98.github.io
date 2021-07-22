@@ -1263,6 +1263,166 @@ appendfilename <span class="token string">"appendonly.aof"</span> <span class="t
 appendfsync everysec <span class="token comment">#每秒执行一次同步，可能会丢失这1秒的数据</span>
 <span class="token comment"># appendfsync no #不同步，这个时候操作系统自己同步数据，redis速度是最快的</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<h2 id="Redis持久化"><a href="#Redis持久化" class="headerlink" title="Redis持久化"></a>Redis持久化</h2><blockquote>
+<p>Redis是内存数据库，如果不将内存中的数据库状态保存到磁盘，那么一旦服务器进程退出，服务器中的数据库状态也会消失。所以Redis提供了持久化功能。</p>
+</blockquote>
+<h3 id="RDB-Redis-DataBase"><a href="#RDB-Redis-DataBase" class="headerlink" title="RDB(Redis DataBase)"></a>RDB(Redis DataBase)</h3><blockquote>
+<p>什么是RDB</p>
+</blockquote>
+<p><img src="/2021/06/04/redis/image-20210707214913167.png" alt="image-20210707214913167"></p>
+<p>在指定的时间间隔将内存中的数据集快照（Snapshot）写入磁盘，他回复时将快照文件直接读到内存里。</p>
+<p>Redis会独立创建（fork）一个子进程来进行持久化，会先将数据写入到一个临时文件中，待持久化过程都结束了，再用这个历史文件替换上次持久化好的文件。整个过程中，主程序是不进行任何IO操作的。这就确保了极高的性能，如果需要进行大规模数据的恢复，且对于数据恢复的完整性不是非常敏感，那RDB方式要比AOF方式更加高效。RDB的缺点是最后一次持久化后的数据可能丢失。</p>
+<p>rdb保存的文件是：dump.rdb文件，都是在配置文件中快照进行配置的。</p>
+<p>==对顺序没有要求的开线程完成==</p>
+<blockquote>
+<p>触发机制：</p>
+</blockquote>
+<ol>
+<li>save的规则满足的情况下，会自动触发rdb原则</li>
+<li>执行flushall命令，也会触发我们的rdb原则</li>
+<li>退出redis，也会自动产生rdb文件</li>
+</ol>
+<blockquote>
+<h4 id="save"><a href="#save" class="headerlink" title="save"></a>save</h4><p>使用 <code>save</code> 命令，会立刻对当前内存中的数据进行持久化 ,但是会阻塞，也就是不接受其他操作了；（由于 <code>save</code> 命令是同步命令，会占用Redis的主进程。若Redis数据非常多时，<code>save</code>命令执行速度会非常慢，阻塞所有客户端的请求。）</p>
+<h4 id="flushall命令"><a href="#flushall命令" class="headerlink" title="flushall命令"></a>flushall命令</h4><p><code>flushall</code> 命令也会触发持久化 ；当满足配置条件中的触发条件 ；</p>
+<p><img src="/2021/06/04/redis/image-20210708122931381.png" alt="image-20210708122931381"></p>
+<h4 id="bgsave"><a href="#bgsave" class="headerlink" title="bgsave"></a>bgsave</h4><p><code>bgsave</code> 是异步进行，进行持久化的时候，<code>redis</code> 还可以将继续响应客户端请求 ；</p>
+<p><img src="/2021/06/04/redis/image-20210708123041030.png" alt="image-20210708123041030"></p>
+</blockquote>
+<blockquote>
+<p>如何恢复rdb文件：</p>
+</blockquote>
+<p>1.只需要将rdb文件放在我们redis启动目录就可以了，redis启动的时候会自动检查dump.rdb文件恢复其中的数据。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> config get <span class="token function">dir</span>
+<span class="token number">1</span><span class="token punctuation">)</span><span class="token string">"dir"</span>
+<span class="token number">2</span><span class="token punctuation">)</span><span class="token string">"/usr/local/bin"</span> <span class="token comment">#如果在这个目录下存在dump.rdb文件，启动就会自动恢复其中的数据。</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>RDB优缺点</p>
+</blockquote>
+<p><strong>优点：</strong></p>
+<ol>
+<li>适合大规模的数据恢复</li>
+<li>对数据的完整性要求不高</li>
+</ol>
+<p><strong>缺点：</strong></p>
+<ol>
+<li>需要一定的时间间隔进行操作，如果redis意外宕机了，这个最后一次修改的数据就没有了。</li>
+<li>fork进程的时候，会占用一定的内容空间。</li>
+</ol>
+<h3 id="AOF-Append-Only-File"><a href="#AOF-Append-Only-File" class="headerlink" title="AOF(Append Only File)"></a>AOF(Append Only File)</h3><p>将我们所有的命令都记录下来，history，恢复的时候就把这个文件全部再执行一遍。</p>
+<p>以日志的形式来记录每个写的操作，将Redis执行过的所有指令记录下来（读操作不记录），只许追加文件但不可以改写文件，redis启动之初会读取该文件重新构建数据，换言之，redis重启的话就根据日志文件的内容将写指令从前到后执行一次以完成数据的恢复工作。</p>
+<p> 快照功能（RDB）并不是非常耐久（durable）： 如果 Redis 因为某些原因而造成故障停机， 那么服务器将丢失最近写入、以及未保存到快照中的那些数据。 从 1.1 版本开始， Redis 增加了一种完全耐久的持久化方式： AOF 持久化。</p>
+<p><img src="/2021/06/04/redis/image-20210708125427966.png" alt="image-20210708125427966"></p>
+<p>如果要使用AOF，需要修改配置文件：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">appendonly <span class="token function">yes</span>  <span class="token comment"># 默认是不开启aof模式的，默认是使用rdb方式持久化的，在大部分的情况下，rdb完全够用</span>
+appendfilename <span class="token string">"appendonly.aof"</span> <span class="token comment">#aof文件的名字</span>
+
+<span class="token comment"># appendfsync always # 每次修改都会sync 消耗性能</span>
+appendfsync everysec <span class="token comment"># 每秒执行一次 sync 可能会丢失这一秒的数据</span>
+<span class="token comment"># appendfsync no # 不执行 sync ,这时候操作系统自己同步数据，速度最快</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><img src="/2021/06/04/redis/image-20210708130503250.png" alt="image-20210708130503250"></p>
+<p>如果aof文件大于64m，会fork一个新的进程来将我们的文件进行重写</p>
+<p>重启redis就可以生效了。</p>
+<p>如果这个aof文件有错误，这时候redis是启动不起来的，我需要修复这个aof文件</p>
+<p>redis给我们提供了一个工具<code>redis-check-aof --fix</code></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">redis-check-aof --fix appendonly.aof<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><img src="/2021/06/04/redis/image-20210708130123359.png" alt="image-20210708130123359"></p>
+<blockquote>
+<p>优点和缺点</p>
+</blockquote>
+<p>优点</p>
+<ol>
+<li><p>每一次修改都会同步，文件的完整性会更加好</p>
+</li>
+<li><p>每秒同步一次，可能会丢失一秒的数据</p>
+</li>
+<li><p>从不同步，效率最高</p>
+</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li><p>相对于数据文件来说，aof远远大于rdb，修复速度比rdb慢！</p>
+</li>
+<li><p>Aof运行效率也要比rdb慢，所以我们redis默认的配置就是rdb持久化。</p>
+</li>
+</ol>
+<h2 id="分布式锁"><a href="#分布式锁" class="headerlink" title="分布式锁"></a>分布式锁</h2><ol>
+<li>分布式锁的产生场景</li>
+</ol>
+<blockquote>
+<p>分布式锁对应的是多个应用，每个应用中都可能会处理相同的数据，如果多个应用对用一个操作进行了重复操作，就会出现数据不一致，数据重复问题，于是分布式锁应用而生，通常你可以理解为多线程中的synchronized</p>
+</blockquote>
+<ol start="2">
+<li>分布式锁的应用场景（==同一时间只有能一个线程操作==）</li>
+</ol>
+<blockquote>
+<ol>
+<li>多台机器都能执行某个任务，如果限制任务每次只能被一台机器执行，不能重复执行，就可以用分布式锁来做标记</li>
+<li>秒杀场景，要求并发量很高，那么同一件商品只能被一个用户抢到，就可以使用分布式锁实现</li>
+<li>比较敏感的数据比如金额修改，同一时间只能有一个人操作，如果2个人同时修改金额，一个加一个减金额，为了防止同时操作造成数据不一致，就可以使用分布式锁实现</li>
+</ol>
+</blockquote>
+<ol start="3">
+<li>分布式锁的实现方式</li>
+</ol>
+<blockquote>
+<ol>
+<li>基于数据库实现分布式锁</li>
+<li>基于缓存（redis，memcached，tair）实现分布式锁</li>
+<li>基于Zookeeper实现分布式锁</li>
+</ol>
+</blockquote>
+<p>原理：每个应用对敏感数据进行操作时都需要向获取一个锁，持有锁的应用才能对数据进行操作，保证在同一时间内只有一台应用能对数据进行操作。</p>
+<ol start="4">
+<li>分布式锁的实现过程</li>
+</ol>
+<p>redis分布式实现是基于 命令<code>setnx key value</code> ， 其意指 若该键不存在则创建键，这就保证了redis中只有一个该键，故应用谁先获得该键，谁就拿到了锁的权限；然后业务逻辑执行完毕则需要使用 <code>del key</code> 删除键，表示释放锁；</p>
+<p><strong>问题1（死锁问题）：</strong></p>
+<p>如果一台业务逻辑执行完毕，程序出现异常，则锁会一直存在，没有得到释放，其它应用就会无法获得锁，此时就会造成<code>死锁</code>问题；</p>
+<p><strong>改进方式</strong>：</p>
+<p>拿到锁之后，给锁加上一个过期时间，也就是 expire key seconds 指令；此时避免了死锁问题，但是由于业务逻辑执行的时间不同，过期的时间设置也是一个问题，故通常分布式锁<code>不能应用于业务逻辑执行较长的程序</code>；</p>
+<p><strong>问题2（原子性问题）：</strong></p>
+<p>由于redis 每条指令都是原子性操作，但由于setnx 和 expire 是2 条指令，如果在执行setnx后程序出现问题expire指令未得到执行就会造成<code>死锁</code>问题；</p>
+<p><strong>解决问题</strong>：</p>
+<p>redis2.8版本之后引入了指令 <code>set key value [EX seconds] [PX milliseconds] [NX|XX]</code> ,该指令可以同时执行 setnx 和 expire ，于是解决了死锁问题；</p>
+<p>参数列表解释</p>
+<ul>
+<li>EX seconds: 设定过期时间，单位为秒</li>
+<li>PX milliseconds: 设定过期时间，单位为毫秒</li>
+<li>NX: key不存在时设置值</li>
+<li>XX: key存在时设置值</li>
+</ul>
+<p><strong>使用jedis客户端实现分布式锁方式</strong></p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">lock</span><span class="token punctuation">(</span><span class="token class-name">Jedis</span> jedis<span class="token punctuation">,</span><span class="token class-name">String</span> key<span class="token punctuation">,</span><span class="token class-name">String</span> val<span class="token punctuation">,</span><span class="token keyword">int</span> expireTime<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token class-name">String</span> lock <span class="token operator">=</span> jedis<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> val<span class="token punctuation">,</span> <span class="token string">"NX"</span><span class="token punctuation">,</span> <span class="token string">"PX"</span><span class="token punctuation">,</span>
+            expireTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token string">"OK"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>lock<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>关于未获得锁的解决思路</strong>：</p>
+<p>可以直接抛出异常让客户重试</p>
+<p>可以使用延迟队列</p>
+<p><strong>问题3（分布式锁超时问题）:</strong></p>
+<p>如果在加锁和释放锁之间，业务逻辑执行时间太长，导致超出了锁的超时限制，就会出现锁过期问题；换句话说，就是第一台应用执行了业务，导致锁过期；第二台应用此时可以获得锁，进行执行业务，此时第一台应用释放了锁，第二台应用在执行业务的时第三台应用获得了锁执行业务，导致在执行过程中，会有2台应用在同时执行业务逻辑；</p>
+<p><strong>解决思路</strong>：</p>
+<p>在释放锁的时候出现了问题，即每台应用都可以释放锁，这会造成1应用的锁释放了2应用锁的问题，换句话说，很多人手中持有的钥匙是通用的，都可以开同一个门；为了避免这个问题，就是1 应用只能释放1应用上的锁，2应用只能释放2应用上的锁，则需要对释放锁进行身份校验；由于上锁的时候key是唯一，但value可以不同，所以可以根据value进行身份的唯一标识，<strong>随机数</strong>就是一个很好的选择 ：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">String</span> value <span class="token operator">=</span> UUID<span class="token punctuation">.</span><span class="token function">randomUUID</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>由于考虑到匹配到value校验和del不是同一个操作，故需要使用Lua脚本实现多条指令的原子性执行；</p>
+<p><strong>jedis释放锁实现方式</strong>：</p>
+<pre class="line-numbers language-Java" data-language="Java"><code class="language-Java">public void unlock(Jedis jedis,String key,String value) {
+        String script_command = "if redis.call('get',KEYS[1]) == ARGV[1] then " +
+                "return redis.call('del',KEYS[1]) else return 0 end";
+        // 解锁
+        jedis.eval(script_command, Collections.singletonList(key), Collections.singletonList(value));
+        
+    }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>Redis进阶：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/zszxz/p/12488852.html">https://www.cnblogs.com/zszxz/p/12488852.html</a></p>
 
                 
             </div>

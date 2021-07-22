@@ -6,7 +6,7 @@
   <link href="https://jameszcx98.github.io/atom.xml" rel="self"/>
   
   <link href="https://jameszcx98.github.io/"/>
-  <updated>2021-06-30T01:18:53.511Z</updated>
+  <updated>2021-07-22T07:35:10.117Z</updated>
   <id>https://jameszcx98.github.io/</id>
   
   <author>
@@ -15,6 +15,52 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Effective_java</title>
+    <link href="https://jameszcx98.github.io/2021/07/22/effective-java/"/>
+    <id>https://jameszcx98.github.io/2021/07/22/effective-java/</id>
+    <published>2021-07-22T06:38:35.000Z</published>
+    <updated>2021-07-22T07:35:10.117Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Effective-java&quot;&gt;&lt;a href=&quot;#Effective-java&quot; class=&quot;headerlink&quot; title=&quot;Effective java&quot;&gt;&lt;/a&gt;Effective</summary>
+        
+      
+    
+    
+    
+    <category term="编程语言" scheme="https://jameszcx98.github.io/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
+    
+    
+    <category term="Effective Java" scheme="https://jameszcx98.github.io/tags/Effective-Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>network_programming</title>
+    <link href="https://jameszcx98.github.io/2021/07/03/network-programming/"/>
+    <id>https://jameszcx98.github.io/2021/07/03/network-programming/</id>
+    <published>2021-07-03T04:26:01.000Z</published>
+    <updated>2021-07-05T02:34:03.284Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;网络编程&quot;&gt;&lt;a href=&quot;#网络编程&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>MybatisPlus</title>
@@ -67,7 +113,7 @@
     <link href="https://jameszcx98.github.io/2021/06/04/redis/"/>
     <id>https://jameszcx98.github.io/2021/06/04/redis/</id>
     <published>2021-06-04T06:43:44.000Z</published>
-    <updated>2021-06-30T01:25:15.178Z</updated>
+    <updated>2021-07-08T05:06:56.087Z</updated>
     
     
       
