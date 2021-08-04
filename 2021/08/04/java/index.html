@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="MybatisPlus, James&#39;s Blog">
+    <meta name="keywords" content="java, James&#39;s Blog">
     <meta name="description" content="上海大学｜计算机科学与技术">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>MybatisPlus | James&#39;s Blog</title>
+    <title>java | James&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -317,12 +317,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">MybatisPlus</h1>
+                    <h1 class="description center-align post-title">java</h1>
                 </div>
             </div>
         </div>
@@ -436,12 +436,25 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">
+                                <span class="chip bg-color">编程语言</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/java/" class="post-category">
+                                java
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -450,7 +463,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-06-28
+                    2021-08-04
                 </div>
                 
 
@@ -474,172 +487,48 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="MybatisPlus"><a href="#MybatisPlus" class="headerlink" title="MybatisPlus"></a>MybatisPlus</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><blockquote>
-<p>Mybatis Plus是一个Mybatis的增强工具，在Mybatis的基础上只做增强不做改变</p>
-</blockquote>
-<ul>
-<li><strong>无侵入</strong>：只做增强不做改变，引入它不会对现有工程产生影响，如丝般顺滑</li>
-<li><strong>损耗小</strong>：启动即会自动注入基本 CURD，性能基本无损耗，直接面向对象操作</li>
-<li><strong>强大的 CRUD 操作</strong>：内置通用 Mapper、通用 Service，仅仅通过少量配置即可实现单表大部分 CRUD 操作，更有强大的条件构造器，满足各类使用需求</li>
-<li><strong>支持 Lambda 形式调用</strong>：通过 Lambda 表达式，方便的编写各类查询条件，无需再担心字段写错</li>
-<li><strong>支持主键自动生成</strong>：支持多达 4 种主键策略（内含分布式唯一 ID 生成器 - Sequence），可自由配置，完美解决主键问题</li>
-<li><strong>支持 ActiveRecord 模式</strong>：支持 ActiveRecord 形式调用，实体类只需继承 Model 类即可进行强大的 CRUD 操作</li>
-<li><strong>支持自定义全局通用操作</strong>：支持全局通用方法注入（ Write once, use anywhere ）</li>
-<li><strong>内置代码生成器</strong>：采用代码或者 Maven 插件可快速生成 Mapper 、 Model 、 Service 、 Controller 层代码，支持模板引擎，更有超多自定义配置等您来使用</li>
-<li><strong>内置分页插件</strong>：基于 MyBatis 物理分页，开发者无需关心具体操作，配置好插件之后，写分页等同于普通 List 查询</li>
-<li><strong>分页插件支持多种数据库</strong>：支持 MySQL、MariaDB、Oracle、DB2、H2、HSQL、SQLite、Postgre、SQLServer 等多种数据库</li>
-<li><strong>内置性能分析插件</strong>：可输出 Sql 语句以及其执行时间，建议开发测试时启用该功能，能快速揪出慢查询</li>
-<li><strong>内置全局拦截插件</strong>：提供全表 delete 、 update 操作智能分析阻断，也可自定义拦截规则，预防误操作</li>
-</ul>
-<p>不要同时导入mybatis和mybatis-plus，会存在版本差异问题。</p>
-<h2 id="实战注意点"><a href="#实战注意点" class="headerlink" title="实战注意点"></a>实战注意点</h2><h3 id="基本步骤"><a href="#基本步骤" class="headerlink" title="基本步骤"></a>基本步骤</h3><ol>
-<li>连接数据库</li>
-</ol>
-<p><img src="/2021/06/28/mybatisplus/image-20210629084357480.png" alt="image-20210629084357480"></p>
-<p>2.传统方式pojo-dao（连接数据库mybatis，配置mapper.xml）-service-controller</p>
-<p>在对应的mapper上面实现基本的接口BaseMapper</p>
-<h3 id="配置日志"><a href="#配置日志" class="headerlink" title="配置日志"></a>配置日志</h3><p>通过日志文件可以知道每句sql是怎么执行的。</p>
-<pre class="line-numbers language-properties" data-language="properties"><code class="language-properties"><span class="token comment">#配置日志</span>
-<span class="token attr-name">mybatis-plus.configuration.log-impl</span><span class="token punctuation">=</span><span class="token attr-value">org.apache.ibatis.logging.stdout.stdouImpl</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p><img src="/2021/06/28/mybatisplus/image-20210629123509185.png" alt="image-20210629123509185"></p>
-<h3 id="数据ID（mybatis-plus可以自动生成id）"><a href="#数据ID（mybatis-plus可以自动生成id）" class="headerlink" title="数据ID（mybatis-plus可以自动生成id）"></a>数据ID（mybatis-plus可以自动生成id）</h3><p><strong>自定义ID，主键生成的策略</strong></p>
-<ul>
-<li>uuid</li>
-</ul>
-<blockquote>
-<p>优点：</p>
-<p>1）简单，代码方便。</p>
-<p>2）生成ID性能非常好，基本不会有性能问题。</p>
-<p>3）全球唯一，在遇见数据迁移，系统数据合并，或者数据库变更等情况下，可以从容应对。</p>
-<p>缺点：</p>
-<p>1）没有排序，无法保证趋势递增。</p>
-<p>2）UUID往往是使用字符串存储，查询的效率比较低。</p>
-<p>3）存储空间比较大，如果是海量数据库，就需要考虑存储量的问题。</p>
-<p>4）传输数据量大</p>
-<p>5）不可读。</p>
-</blockquote>
-<ul>
-<li>自增id</li>
-</ul>
-<blockquote>
-<p>优点：</p>
-<p>1）简单，代码方便，性能可以接受。</p>
-<p>2）数字ID天然排序，对分页或者需要排序的结果很有帮助。</p>
-<p>缺点：</p>
-<p>1）不同数据库语法和实现不同，数据库迁移的时候或多数据库版本支持的时候需要处理。</p>
-<p>2）在单个数据库或读写分离或一主多从的情况下，只有一个主库可以生成。有单点故障的风险。</p>
-<p>3）在性能达不到要求的情况下，比较难于扩展。（不适用于海量高并发）</p>
-<p>4）如果遇见多个系统需要合并或者涉及到数据迁移会相当痛苦。</p>
-<p>5）分表分库的时候会有麻烦。</p>
-<p>6）并非一定连续，类似MySQL，当生成新ID的事务回滚，那么后续的事务也不会再用这个ID了。这个在性能和连续性的折中。如果为了保证连续，必须要在事务结束后才能生成ID，那性能就会出现问题。</p>
-<p>7）在分布式数据库中，如果采用了自增主键的话，有可能会带来尾部热点。分布式数据库常常使用range的分区方式，在大量新增记录的时候，IO会集中在一个分区上，造成热点数据。</p>
-<p>优化方案：</p>
-<p>1）针对主库单点，如果有多个Master库，则每个Master库设置的起始数字不一样，步长一样，可以是Master的个数。比如：Master1 生成的是 1，4，7，10，Master2生成的是2,5,8,11 Master3生成的是 3,6,9,12。这样就可以有效生成集群中的唯一ID，也可以大大降低ID生成数据库操作的负载。</p>
-</blockquote>
-<ul>
-<li>雪花算法</li>
-</ul>
-<blockquote>
-<p>使用41bit作为毫秒数，10bit作为机器ID（5个bit是数据中心，5个bit是机器ID），12bit作为毫秒内的流水号（意味每个节点在每毫米可以产生4096个ID），最后还有一个符号位，永远是0。</p>
-<p>优点：</p>
-<p>1）不依赖于数据库，灵活方便，且性能优于数据库。</p>
-<p>2）ID按照时间在单机上是递增的。</p>
-<p>缺点：</p>
-<p>1）在单机上是递增的，但是由于涉及到分布式环境，每台机器上的时钟不可能完全同步，在算法上要解决时间回拨的问题。</p>
-</blockquote>
-<ul>
-<li>redis</li>
-</ul>
-<blockquote>
-<p>当使用数据库来生成ID性能不够要求的时候，我们可以尝试使用Redis来生成ID。这主要依赖于Redis是单线程的，所以也可以用生成全局唯一的ID。可以用Redis的原子操作 INCR和INCRBY来实现。</p>
-<p>可以使用Redis集群来获取更高的吞吐量。假如一个集群中有5台Redis。可以初始化每台Redis的值分别是1,2,3,4,5，然后步长都是5。各个Redis生成的ID为：</p>
-<p>A：1,6,11,16,21</p>
-<p>B：2,7,12,17,22</p>
-<p>C：3,8,13,18,23</p>
-<p>D：4,9,14,19,24</p>
-<p>E：5,10,15,20,25</p>
-<p>这个，随便负载到哪个机确定好，未来很难做修改。但是3-5台服务器基本能够满足器上，都可以获得不同的ID。但是步长和初始值一定需要事先需要了。使用Redis集群也可以方式单点故障的问题。</p>
-<p>另外，比较适合使用Redis来生成每天从0开始的流水号。比如订单号=日期+当日自增长号。可以每天在Redis中生成一个Key，使用INCR进行累加。</p>
-<p>优点：</p>
-<p>1）不依赖于数据库，灵活方便，且性能优于数据库。</p>
-<p>2）数字ID天然排序，对分页或者需要排序的结果很有帮助。</p>
-<p>缺点：</p>
-<p>1）如果系统中没有Redis，还需要引入新的组件，增加系统复杂度。</p>
-<p>2）需要编码和配置的工作量比较大。</p>
-</blockquote>
-<ul>
-<li>zookeeper</li>
-</ul>
-<blockquote>
-<p>zookeeper主要通过其znode数据版本来生成序列号，可以生成32位和64位的数据版本号，客户端可以使用这个版本号来作为唯一的序列号。<br>很少会使用zookeeper来生成唯一ID。主要是由于需要依赖zookeeper，并且是多步调用API，如果在竞争较大的情况下，需要考虑使用分布式锁。因此，性能在高并发的分布式环境下，也不甚理想。 </p>
-</blockquote>
-<p>项目中的具体设置。</p>
-<p><img src="/2021/06/28/mybatisplus/image-20210629125334478.png" alt="image-20210629125334478"></p>
-<h3 id="自动填充"><a href="#自动填充" class="headerlink" title="自动填充"></a>自动填充</h3><p>所有的数据库表都必须有的字段为</p>
-<ul>
-<li><p>version（乐观锁）</p>
-</li>
-<li><p>Delete（逻辑删除）</p>
-</li>
-<li><p>gmt_create（创建时间）</p>
-</li>
-<li><p>gmt_modified（修改时间）</p>
-</li>
-</ul>
-<blockquote>
-<p>方式一：数据库级别</p>
-</blockquote>
+                <h1 id="java-技巧"><a href="#java-技巧" class="headerlink" title="java 技巧"></a>java 技巧</h1><h2 id="使用Optional解决NPE问题"><a href="#使用Optional解决NPE问题" class="headerlink" title="使用Optional解决NPE问题"></a>使用Optional解决NPE问题</h2><h3 id="构建Optional对象"><a href="#构建Optional对象" class="headerlink" title="构建Optional对象"></a>构建Optional对象</h3><blockquote>
 <ol>
-<li>在表中新增字段</li>
+<li>of(T value)：当value值为null时，of(T value)会报NullPointerException异常；当Value值不为空时，能正常构造Optional对象。</li>
+<li>ofNullable(T value)：当value值为null时，不会throw Exception会直接返回一个EMPTY对象。</li>
 </ol>
-<img src="/2021/06/28/mybatisplus/image-20210629130205442.png" alt="image-20210629130205442" style="zoom:200%;">
+</blockquote>
+<h3 id="Optional操作对象"><a href="#Optional操作对象" class="headerlink" title="Optional操作对象"></a>Optional操作对象</h3><blockquote>
+<p>map(Function&lt;? super T, ? extends U&gt; mapper)和flatMap(Function&lt;? super T, Optional<u>&gt; mapper)</u></p><u>
+</u></blockquote><u>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">String</span> city <span class="token operator">=</span> <span class="token class-name">Optional</span><span class="token punctuation">.</span><span class="token function">ofNullable</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>u<span class="token operator">-&gt;</span> u<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <blockquote>
-<p>方式二：代码级别</p>
+<p>isPresent()和ifPresent(Consumer&lt;? super T&gt; consumer)</p>
 </blockquote>
-<ol>
-<li><p>删除数据库的默认值和更新操作</p>
-</li>
-<li><p>实体类字段属性上需要增加注解</p>
-</li>
-</ol>
-<p><img src="/2021/06/28/mybatisplus/image-20210629130557388.png" alt="image-20210629130557388"></p>
-<ol start="3">
-<li>编写处理器来处理注解</li>
-</ol>
-<p><img src="/2021/06/28/mybatisplus/image-20210629130842852.png" alt="image-20210629130842852"></p>
-<h3 id="乐观锁"><a href="#乐观锁" class="headerlink" title="乐观锁"></a>乐观锁</h3><p>乐观锁的实现方式：</p>
-<ul>
-<li>取出记录时，获取当前version</li>
-<li>更新时，带上这个version</li>
-<li>执行更新时， set version = newVersion where version = oldVersion</li>
-<li>如果version不对，就更新失败</li>
-</ul>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Optional</span><span class="token punctuation">.</span><span class="token function">ofNullable</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">ifPresent</span><span class="token punctuation">(</span>u<span class="token operator">-&gt;</span><span class="token punctuation">{</span>
+
+   <span class="token comment">// TODO: do something</span>
+
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <blockquote>
-<p>mybatis-plus中的乐观锁插件</p>
+<p>filter(Predicate&lt;? super T&gt; predicate)</p>
+<p>filter 方法接受一个 Predicate 来对 Optional 中包含的值进行过滤，如果包含的值满足条件，那么还是返回这个 Optional；否则返回 Optional.empty。</p>
 </blockquote>
-<ol>
-<li>给数据库中添加version字段（int类型，初始字段为1）</li>
-<li>实体类添加对应的字段</li>
-</ol>
-<img src="/2021/06/28/mybatisplus/image-20210629131429189.png" alt="image-20210629131429189" style="zoom:200%;">
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//如果user的name的长度是小于6的，则返回。如果是大于6的，则返回一个EMPTY对象。</span>
+<span class="token class-name">Optional</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">User</span><span class="token punctuation">&gt;</span></span> user1 <span class="token operator">=</span> <span class="token class-name">Optional</span><span class="token punctuation">.</span><span class="token function">ofNullable</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>u <span class="token operator">-&gt;</span> u<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&lt;</span><span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<ol start="3">
-<li>注册组件（编写一个配置类）</li>
-</ol>
-<p><img src="/2021/06/28/mybatisplus/image-20210629131602037.png" alt="image-20210629131602037"></p>
-<ol start="4">
-<li>测试</li>
-</ol>
-<p><img src="/2021/06/28/mybatisplus/image-20210629131903669.png" alt="image-20210629131903669"></p>
-<h3 id="条件构造器"><a href="#条件构造器" class="headerlink" title="条件构造器"></a>条件构造器</h3><p><img src="/2021/06/28/mybatisplus/image-20210630090725988.png" alt="image-20210630090725988"></p>
-<p><img src="/2021/06/28/mybatisplus/image-20210630090916517.png" alt="image-20210630090916517"></p>
-<p><img src="/2021/06/28/mybatisplus/image-20210630091037033.png" alt="image-20210630091037033"></p>
-<p><img src="/2021/06/28/mybatisplus/image-20210630091311020.png" alt="image-20210630091311020"></p>
-<p><img src="/2021/06/28/mybatisplus/image-20210630091451074.png" alt="image-20210630091451074"></p>
-<p><img src="/2021/06/28/mybatisplus/image-20210630091639598.png" alt="image-20210630091639598"></p>
+<blockquote>
+<p>orElse(T other)，orElseGet(Supplier&lt;? extends T&gt; other)和orElseThrow(Supplier&lt;? extends X&gt; exceptionSupplier)</p>
+<p>在构造函数传入的value值为null时，进行调用的。</p>
+</blockquote>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">User</span> user <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+<span class="token comment">//orElse函数依然会执行createUser()方法，而orElseGet函数并不会执行createUser()方法</span>
+user <span class="token operator">=</span> <span class="token class-name">Optional</span><span class="token punctuation">.</span><span class="token function">ofNullable</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">orElse</span><span class="token punctuation">(</span><span class="token function">createUser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
+user <span class="token operator">=</span> <span class="token class-name">Optional</span><span class="token punctuation">.</span><span class="token function">ofNullable</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">orElseGet</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-&gt;</span> <span class="token function">createUser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token class-name">Optional</span><span class="token punctuation">.</span><span class="token function">ofNullable</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">orElseThrow</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-&gt;</span><span class="token keyword">new</span> <span class="token class-name">Exception</span><span class="token punctuation">(</span><span class="token string">"用户不存在"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+</u>
                 
             </div>
             <hr/>
@@ -665,7 +554,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://jameszcx98.github.io/2021/06/28/mybatisplus/">https://jameszcx98.github.io/2021/06/28/mybatisplus/</a>
+                    <a href="https://jameszcx98.github.io/2021/08/04/java/">https://jameszcx98.github.io/2021/08/04/java/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -702,7 +591,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">
+                                    <span class="chip bg-color">编程语言</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -1138,17 +1031,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/07/03/network-programming/">
+                <a href="/2021/08/04/java/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="Network Programming">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="java">
                         
-                        <span class="card-title">Network Programming</span>
+                        <span class="card-title">java</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1158,16 +1052,29 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-07-03
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-04
+                            </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            James zhang
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/java/" class="post-category">
+                                    java
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">
+                        <span class="chip bg-color">编程语言</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -1179,13 +1086,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/06/24/elasticsearch/">
+                <a href="/2021/07/30/mongodb/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="elasticsearch">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="MongoDB">
                         
-                        <span class="card-title">elasticsearch</span>
+                        <span class="card-title">MongoDB</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1196,27 +1103,15 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-24
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-07-30
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E5%90%8E%E7%AB%AF%E7%AC%94%E8%AE%B0/" class="post-category">
-                                    后端笔记
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            James zhang
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
-                        <span class="chip bg-color">数据库</span>
-                    </a>
-                    
                 </div>
                 
             </div>

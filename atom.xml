@@ -6,7 +6,7 @@
   <link href="https://jameszcx98.github.io/atom.xml" rel="self"/>
   
   <link href="https://jameszcx98.github.io/"/>
-  <updated>2021-07-22T07:35:10.117Z</updated>
+  <updated>2021-08-04T00:44:11.689Z</updated>
   <id>https://jameszcx98.github.io/</id>
   
   <author>
@@ -17,18 +17,64 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Effective_java</title>
+    <title>java</title>
+    <link href="https://jameszcx98.github.io/2021/08/04/java/"/>
+    <id>https://jameszcx98.github.io/2021/08/04/java/</id>
+    <published>2021-08-04T00:25:21.000Z</published>
+    <updated>2021-08-04T00:44:11.689Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;java-技巧&quot;&gt;&lt;a href=&quot;#java-技巧&quot; class=&quot;headerlink&quot; title=&quot;java 技巧&quot;&gt;&lt;/a&gt;java 技巧&lt;/h1&gt;&lt;h2 id=&quot;使用Optional解决NPE问题&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="java" scheme="https://jameszcx98.github.io/categories/java/"/>
+    
+    
+    <category term="编程语言" scheme="https://jameszcx98.github.io/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MongoDB</title>
+    <link href="https://jameszcx98.github.io/2021/07/30/mongodb/"/>
+    <id>https://jameszcx98.github.io/2021/07/30/mongodb/</id>
+    <published>2021-07-30T04:43:40.000Z</published>
+    <updated>2021-07-30T04:46:02.057Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;MongoDB&quot;&gt;&lt;a href=&quot;#MongoDB&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Effective Java</title>
     <link href="https://jameszcx98.github.io/2021/07/22/effective-java/"/>
     <id>https://jameszcx98.github.io/2021/07/22/effective-java/</id>
     <published>2021-07-22T06:38:35.000Z</published>
-    <updated>2021-07-22T07:35:10.117Z</updated>
+    <updated>2021-08-04T00:45:30.543Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;Effective-java&quot;&gt;&lt;a href=&quot;#Effective-java&quot; class=&quot;headerlink&quot; title=&quot;Effective java&quot;&gt;&lt;/a&gt;Effective</summary>
+    <summary type="html">&lt;h1 id=&quot;Effective-Java&quot;&gt;&lt;a href=&quot;#Effective-Java&quot; class=&quot;headerlink&quot;</summary>
         
       
     
@@ -42,11 +88,11 @@
   </entry>
   
   <entry>
-    <title>network_programming</title>
+    <title>Network Programming</title>
     <link href="https://jameszcx98.github.io/2021/07/03/network-programming/"/>
     <id>https://jameszcx98.github.io/2021/07/03/network-programming/</id>
     <published>2021-07-03T04:26:01.000Z</published>
-    <updated>2021-07-05T02:34:03.284Z</updated>
+    <updated>2021-08-04T00:45:21.110Z</updated>
     
     
       
