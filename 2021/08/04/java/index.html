@@ -487,7 +487,146 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="java-技巧"><a href="#java-技巧" class="headerlink" title="java 技巧"></a>java 技巧</h1><h2 id="使用Optional解决NPE问题"><a href="#使用Optional解决NPE问题" class="headerlink" title="使用Optional解决NPE问题"></a>使用Optional解决NPE问题</h2><h3 id="构建Optional对象"><a href="#构建Optional对象" class="headerlink" title="构建Optional对象"></a>构建Optional对象</h3><blockquote>
+                <h1 id="java-难点"><a href="#java-难点" class="headerlink" title="java 难点"></a>java 难点</h1><h2 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h2><p>内置注解：</p>
+<blockquote>
+<p>@overide @deprecated @suppressWarnings</p>
+</blockquote>
+<p>元注解：</p>
+<blockquote>
+<p>元注解的作用就是负责注解其他注解</p>
+<p>有：@Target @Retention @Documented @Inherited</p>
+<p>@Target：用于描述注解的适用范围</p>
+<p>@Retention：表示需要在什么级别保存该注释信息，用于描述注解的生命周期（SOURCE&lt;CLASS&lt;RUNTIME）</p>
+<p>@Document：说明该注解将包含在javadoc中</p>
+<p>@Inherited：说明子类可以继承父类中的注解</p>
+</blockquote>
+<h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2><blockquote>
+<p>动态语言：是一类在运行时可以改变其结构的语言。</p>
+<p>静态语言：运行时结构不可改变的语言就是静态语言。</p>
+</blockquote>
+<ul>
+<li>Reflection是java被视为动态语言的关键，反射机制允许程序在执行期间借助于Reflection API取得任何类的内部信息，并能直接操作任意对象的内部属性及方法。</li>
+</ul>
+<blockquote>
+<p><strong>原理：</strong></p>
+<p>加载完类之后，在堆内存的方法区中就产生了一个Class类型的对象（一个类只有一个Class对象），这个对象就包含了完整的类的结构信息。我们可以通过这个对象看到类的结构。这个对象就像一面镜子，透过这个镜子看到类的结构，所以称之为反射。</p>
+<p><strong>优点：</strong></p>
+<ul>
+<li>可以实现动态创建对象和编译，体现出很大的灵活性</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>对性能有影响。使用反射基本上是一种解释操作，我们可以告诉JVM，我们希望做什么并且满足我们的需求。这类操作总是属于鳗鱼直接执行相同的操作。</li>
+</ul>
+<p><strong>Java反射机制提供的功能：</strong></p>
+<ul>
+<li><p>在运行时判断任意一个对象所属的类</p>
+</li>
+<li><p>在运行时构造任意一个类的对象</p>
+</li>
+<li><p>在运行时判断任意一个类所具有的成员变量和方法</p>
+</li>
+<li><p>在运行时获取泛型信息</p>
+</li>
+<li><p>在运行时调用任意一个对象的成员变量和方法</p>
+</li>
+<li><p>在运行时处理注解</p>
+</li>
+<li><p>生成动态代理</p>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>反射流程图：</li>
+</ul>
+<p><img src="/2021/08/04/java/image-20210808115824094.png" alt="image-20210808115824094"></p>
+<blockquote>
+<p>通过getclass方法可以得到的信息有：某个类的属性，方法和构造器，某个类实现的结构。</p>
+<p>对于每个类而言，JRE都为其保留一个不变的Class类型的对象。</p>
+<p><strong>class类的特点：</strong></p>
+<ul>
+<li>Class本身也是一个类</li>
+<li>Class对象只能由系统建立对象</li>
+<li>一个加载的类在JVM中只会有一个Class实例</li>
+<li>一个Class对象对应的是一个加载到JVM中的一个.class文件</li>
+<li>每个类的实例都会记住自己是由哪个Class实例所生成</li>
+<li>通过Class可以完整的得到一个类中的所有被加载的结构</li>
+<li>Class类是Refection的根源，针对任何你想动态加载，运行的类，唯有鲜活的相应的Class对象</li>
+</ul>
+<p><strong>哪些类型可以有Class对象：</strong>（只要元素类型与维度一样，就是同一个Class）</p>
+<ul>
+<li>class：外部类，成员（成员内部类，静态内部类），局部内部类，匿名内部类</li>
+<li>interface：接口</li>
+<li>【】：数组</li>
+<li>enum：枚举</li>
+<li>annotation：注解@interface</li>
+<li>primitive type：基本类型</li>
+<li>void</li>
+</ul>
+</blockquote>
+<p><img src="/2021/08/04/java/image-20210808132702068.png" alt="image-20210808132702068"></p>
+<p>获取Class类的实例</p>
+<blockquote>
+<ul>
+<li>若已知具体的类，通过类的class属性获取（该方法最为安全可靠）</li>
+</ul>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Class</span> clazz <span class="token operator">=</span> <span class="token class-name">Person</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li>已知某个类的实例，调用该实例的getClass（）方法获取Class对象</li>
+</ul>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Class</span> clazz <span class="token operator">=</span> person<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li>已知一个类的全类名，且该类在类路径下，可通过Class类的静态方法forName（）获取，可能会抛出ClassNotFoundException</li>
+</ul>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Class</span> clazz <span class="token operator">=</span> <span class="token class-name">Class</span><span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">"Reflection.Student"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li>内置基本类型可以直接用类名.Type</li>
+</ul>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Class</span> type <span class="token operator">=</span> <span class="token class-name">Integer</span><span class="token punctuation">.</span>TYPE<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li>利用ClassLoader(通过父类获取)</li>
+</ul>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Class</span> c <span class="token operator">=</span> <span class="token class-name">Teacher</span><span class="token punctuation">.</span><span class="token function">getSuperClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</blockquote>
+<h2 id="类加载"><a href="#类加载" class="headerlink" title="类加载"></a>类加载</h2><h3 id="类加载的过程"><a href="#类加载的过程" class="headerlink" title="类加载的过程"></a>类加载的过程</h3><blockquote>
+<ul>
+<li>加载：将class文件字节码内容加载到内存中，并将这些静态数据转换成方法区的运行时数据结构，然后生成一个代表这个类的java.lang.class对象。</li>
+<li>链接：将java类的二进制代码合并到jvm的运行状态之中的过程。<ul>
+<li>验证：确保加载的类信息符合jvm规范，没有安全的问题</li>
+<li>准备：正式为类变量（static）分配内存并设置类变量默认初始值的阶段，这些内存都将在方法区中进行分配。</li>
+<li>解析：虚拟机常量池内的符号引用（常量名）替换成直接引用（地址）的过程。</li>
+</ul>
+</li>
+<li>初始化：<ul>
+<li>执行类构造器<clinit>()方法的过程。类构造器<clinit>()方法是由编译器自动收集类中所有类变量的赋值动作和静态代码块中的语句合并产生的。（类构造器是构造类信息的，不是构造该类对象的构造器）</clinit></clinit></li>
+<li>当初始化一个类的时候，如果发现其父类还没有进行初始化，则需要先触发其父类的初始化。</li>
+<li>虚拟机会保证一个类的<clinit>()方法在多线程环境中被正确加锁和同步。</clinit></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p>什么时候会发生类初始化？</p>
+<blockquote>
+<p>类的主动引用（一定会发生类的初始化）</p>
+<ul>
+<li>当初始化启动，先初始化main方法所在的类</li>
+<li>new一个类的对象</li>
+<li>调用类的静态成员变量（除了final常量）和静态方法</li>
+<li>使用java.lang.reflect包的方法对类进行反射调用</li>
+<li>当初始化一个类，如果其父类没有被初始化，则先会初始化它的父类。</li>
+</ul>
+<p>类的被动引用（不会发生类的初始化）</p>
+<ul>
+<li>当访问一个静态域时，只有真正声明这个域才会被初始化。如：当通过子类引用父类的静态变量，不会导致子类初始化。</li>
+<li>通过数组定义类引用，不会触发此类的初始化。（ Teacher[] xxx=new Teacher[5])</li>
+<li>引用常量不会触发此类的初始化（常量在链接阶段就存入调用类的常量池中了）</li>
+</ul>
+</blockquote>
+<h2 id="使用Optional解决NPE问题"><a href="#使用Optional解决NPE问题" class="headerlink" title="使用Optional解决NPE问题"></a>使用Optional解决NPE问题</h2><h3 id="构建Optional对象"><a href="#构建Optional对象" class="headerlink" title="构建Optional对象"></a>构建Optional对象</h3><blockquote>
 <ol>
 <li>of(T value)：当value值为null时，of(T value)会报NullPointerException异常；当Value值不为空时，能正常构造Optional对象。</li>
 <li>ofNullable(T value)：当value值为null时，不会throw Exception会直接返回一个EMPTY对象。</li>
@@ -524,9 +663,7 @@ user <span class="token operator">=</span> <span class="token class-name">Option
 
 user <span class="token operator">=</span> <span class="token class-name">Optional</span><span class="token punctuation">.</span><span class="token function">ofNullable</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">orElseGet</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-&gt;</span> <span class="token function">createUser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token class-name">Optional</span><span class="token punctuation">.</span><span class="token function">ofNullable</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">orElseThrow</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-&gt;</span><span class="token keyword">new</span> <span class="token class-name">Exception</span><span class="token punctuation">(</span><span class="token string">"用户不存在"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token class-name">Optional</span><span class="token punctuation">.</span><span class="token function">ofNullable</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">orElseThrow</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-&gt;</span><span class="token keyword">new</span> <span class="token class-name">Exception</span><span class="token punctuation">(</span><span class="token string">"用户不存在"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="springboot-全局异常处理"><a href="#springboot-全局异常处理" class="headerlink" title="springboot 全局异常处理"></a>springboot 全局异常处理</h2><blockquote>
 <p>全局异常处理，所解决的问题就是，当程序出现异常，可以通过aop的方式将异常信息转换为前后端对接的数据形式。</p>
