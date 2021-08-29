@@ -6,7 +6,7 @@
   <link href="https://jameszcx98.github.io/atom.xml" rel="self"/>
   
   <link href="https://jameszcx98.github.io/"/>
-  <updated>2021-08-08T14:16:25.648Z</updated>
+  <updated>2021-08-29T14:36:37.785Z</updated>
   <id>https://jameszcx98.github.io/</id>
   
   <author>
@@ -17,11 +17,36 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>design-mode</title>
+    <link href="https://jameszcx98.github.io/2021/08/28/design-mode/"/>
+    <id>https://jameszcx98.github.io/2021/08/28/design-mode/</id>
+    <published>2021-08-28T13:56:11.000Z</published>
+    <updated>2021-08-29T14:36:37.785Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;design-mode&quot;&gt;&lt;a href=&quot;#design-mode&quot; class=&quot;headerlink&quot; title=&quot;design mode&quot;&gt;&lt;/a&gt;design mode&lt;/h1&gt;&lt;h2 id=&quot;OOP七大原则&quot;&gt;&lt;a href=&quot;#OOP七大原则&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式" scheme="https://jameszcx98.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="编程技巧" scheme="https://jameszcx98.github.io/tags/%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/"/>
+    
+  </entry>
+  
+  <entry>
     <title>java</title>
     <link href="https://jameszcx98.github.io/2021/08/04/java/"/>
     <id>https://jameszcx98.github.io/2021/08/04/java/</id>
     <published>2021-08-04T00:25:21.000Z</published>
-    <updated>2021-08-08T14:16:25.648Z</updated>
+    <updated>2021-08-11T05:07:29.138Z</updated>
     
     
       
