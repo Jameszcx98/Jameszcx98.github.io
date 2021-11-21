@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="design-mode, James&#39;s Blog">
+    <meta name="keywords" content="multithreading, James&#39;s Blog">
     <meta name="description" content="上海大学｜计算机科学与技术">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>design-mode | James&#39;s Blog</title>
+    <title>multithreading | James&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -317,12 +317,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">design-mode</h1>
+                    <h1 class="description center-align post-title">multithreading</h1>
                 </div>
             </div>
         </div>
@@ -436,25 +436,12 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/">
-                                <span class="chip bg-color">编程技巧</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-category">
-                                设计模式
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -463,7 +450,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-08-28
+                    2021-11-14
                 </div>
                 
 
@@ -487,116 +474,74 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="design-mode"><a href="#design-mode" class="headerlink" title="design mode"></a>design mode</h1><h2 id="OOP七大原则"><a href="#OOP七大原则" class="headerlink" title="OOP七大原则"></a>OOP七大原则</h2><blockquote>
-<ol>
-<li>开闭原则：对扩展开放，对修改关闭</li>
-<li>里氏替换原则：继承必须确保超类所拥有的性质在子类中仍然成立</li>
-<li>依赖倒置原则：要面向接口编程，不要面向实现编程（抽象不依赖细节，细节依赖抽象，编程中的逻辑关系都是依赖于接口模型进行规定的，具体的实现类都是为了实现接口的功能）</li>
-<li>单一职责原则：控制类的粒度大小，将对象解耦、提高其内聚性（一个对象不需要承担太多的职责）</li>
-<li>接口隔离原则：要为各个类建立它们需要的专用接口</li>
-<li>迪米特法则：只与你的朋友交谈，不跟陌生人说话</li>
-<li>合成服用原则：尽量先使用组合或者聚会等关联联系来实现，其次才考虑使用继承的关系来实现。</li>
-</ol>
-<p>（组合/聚合是has的关系，继承是is的关系）组合通过一个类是另一个类的成员变量来实现</p>
+                <h1 id="多线程和并发编程"><a href="#多线程和并发编程" class="headerlink" title="多线程和并发编程"></a>多线程和并发编程</h1><h2 id="线程简介"><a href="#线程简介" class="headerlink" title="线程简介"></a>线程简介</h2><blockquote>
+<p>进程是资源分配的最小单位</p>
+<p>线程是CPU调度的和执行的单位</p>
 </blockquote>
-<p>最终原则保证系统架构和结构的清晰性。</p>
-<h2 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><blockquote>
-<p>作用：</p>
+<h2 id="线程实现"><a href="#线程实现" class="headerlink" title="线程实现"></a>线程实现</h2><h3 id="继承Thread类（重点）"><a href="#继承Thread类（重点）" class="headerlink" title="继承Thread类（重点）"></a>继承Thread类（重点）</h3><blockquote>
+<p>当Java虚拟机启动时，通常有一个非守护进程（通常调用某些指定类的名为main的方法）。Java虚拟机将继续执行线程，直到发生以下任一情况：</p>
 <ul>
-<li>实现了创建者和调用者的分离</li>
-</ul>
-<p>核心本质：</p>
-<ul>
-<li>实例化对象不使用new，使用工厂方法代替</li>
-<li>将选择实现类，创建对象统一管理和控制。从而将调用者跟我们的实现类解耦</li>
-</ul>
-<p>OOP七大原则：</p>
-<ul>
-<li>开闭原则</li>
-<li>依赖倒转原则</li>
-<li>迪米特法则</li>
-</ul>
-<p>三种模式：</p>
-<ul>
-<li>简单工厂模式<ul>
-<li>用来生产同一结构等级中的任何产品（对于增加新的产品，需要修改原来的代码）</li>
-</ul>
-</li>
-<li>工厂方法模式<ul>
-<li>用来生产同一等级结构中的固定产品（支持增加任意产品）</li>
-</ul>
-</li>
-<li>抽象工厂模式<ul>
-<li>围绕一个超级工厂创建其他工厂。该超级工厂又称为其他工厂的工厂</li>
-</ul>
-</li>
+<li>已经调用了Runtime类的exit方法，并且安全管理器已经允许进行推出操作。</li>
+<li>所有不是守护进程线程的线程都已经死亡，无论是从调用返回到run方法还是抛出超出</li>
 </ul>
 </blockquote>
-<ul>
-<li><p>简单工厂模式：</p>
-<ol>
-<li>结构图</li>
-</ol>
-<p><img src="/2021/08/28/design-mode/image-20210829220351295.png" alt="image-20210829220351295"></p>
-<ol start="2">
-<li>特点：<ol>
-<li>特点消费者不需要知道汽车是如何制造的（实例化wuling的具体方法），直接从工厂进行获取（不关心如何实现，只调用）</li>
-<li>如果要新增汽车，需要修改车工厂代码，违反了开闭原则</li>
-</ol>
-</li>
-</ol>
-</li>
-<li><p>工厂方法模式：</p>
-<ol>
-<li>结构图</li>
-</ol>
-<p><img src="/2021/08/28/design-mode/image-20210829221013768.png" alt="image-20210829221013768"></p>
-<ol start="2">
-<li>特点：<ol>
-<li>编写了一个工厂的接口，如果新增汽车，直接添加一个工厂实现类就可以了，支持开闭原则。</li>
-</ol>
-</li>
-</ol>
-</li>
-<li><p>抽象工厂模式：个人认为与工厂方法模式没什么区别，就是一个工厂需要生产多个产品的时候使用抽象工厂模式，有产品族和产品结构的概念。</p>
-</li>
-</ul>
-<blockquote>
-<p>定义：</p>
-<ul>
-<li>抽象工厂模式提供了一个创建一系列相关或者相互依赖对象的接口，无需制定它们具体的类</li>
-</ul>
-<p>适用场景：</p>
-<ul>
-<li>应用层不依赖于产品类实例如何被创建，实现的细节。</li>
-<li>强调一系列相关的产品对象（属于同一产品族）一起使用创建对象需要大量的重复代码。</li>
-<li>提供一个产品类的库，所有的产品以同样的接口出现，从而使得客户端不依赖于具体的实现</li>
-</ul>
-<p>优点：</p>
-<ul>
-<li>具体产品在应用层的代码隔离，无需关心创建的细节</li>
-<li>将一个系列的产品统一到一起创建</li>
-</ul>
-<p>缺点：</p>
-<ul>
-<li>规定了所有可能被创建的产品集合，产品簇中拓展新的产品困难</li>
-<li>增加了系统的抽象性和理解难度</li>
-</ul>
-</blockquote>
-<h2 id="结构性模式"><a href="#结构性模式" class="headerlink" title="结构性模式"></a>结构性模式</h2><blockquote>
-<p>作用：</p>
-<ul>
-<li>从程序的结构上实现松耦合，从而可以扩大整体的类结构，用来解决更大的问题</li>
-<li></li>
-</ul>
-</blockquote>
-<p>proxy生成动态代理的实例</p>
-<p>invocationHandler调用处理程序并返回结果</p>
-<h2 id="个人总结"><a href="#个人总结" class="headerlink" title="个人总结"></a>个人总结</h2><p>如果要使用这个接口的方法，采用实现接口</p>
-<p>如果这个类有共同的属性，采用抽象类</p>
-<p>这个类是一个什么（extends 继承的关系）</p>
-<p>这个类有什么（自动注入的关系）</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestThread</span> <span class="token keyword">extends</span> <span class="token class-name">Thread</span><span class="token punctuation">{</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>i <span class="token operator">&lt;</span> <span class="token number">200</span><span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"我在看代码---"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token class-name">TestThread</span> testThread <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TestThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    testThread<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<p>不建议使用：避免OOP单继承局限性</p>
+<h3 id="实现Runnable接口（重点）"><a href="#实现Runnable接口（重点）" class="headerlink" title="实现Runnable接口（重点）"></a>实现Runnable接口（重点）</h3><blockquote>
+<p>创建线程方法：实现runnable接口，传入目标对象+thread对象.start</p>
+<p>推荐使用：避免单继承局限性，灵活方便，方便同一个对象被多个线程使用</p>
+</blockquote>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestThread</span> <span class="token keyword">implements</span> <span class="token class-name">Runnable</span><span class="token punctuation">{</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>i <span class="token operator">&lt;</span> <span class="token number">200</span><span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"我在看代码---"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token class-name">TestThread</span> testThread <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TestThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span>testThread<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="实现Callable接口（了解）"><a href="#实现Callable接口（了解）" class="headerlink" title="实现Callable接口（了解）"></a>实现Callable接口（了解）</h3><blockquote>
+<ol>
+<li>实现callable接口，==需要返回值类型==</li>
+<li>重写call方法，需要抛出异常</li>
+<li>创建目标对象</li>
+<li>创建执行任务：ExecutorService ser = Executors.newFixedThreadPool(1);</li>
+<li>提交执行: Future<boolean> result1 = ser.submit(t1);</boolean></li>
+<li>获取结果: boolean r1 = result1.get()</li>
+<li>关闭服务: ser.shutdownNow();</li>
+</ol>
+</blockquote>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestCallable</span> <span class="token keyword">implements</span> <span class="token class-name">Callable</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Boolean</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">{</span>
+  <span class="token keyword">private</span> <span class="token class-name">String</span> url<span class="token punctuation">;</span><span class="token comment">//网络图片地址</span>
+  <span class="token keyword">private</span> <span class="token class-name">String</span> name<span class="token punctuation">;</span><span class="token comment">//保存的文件名</span>
+  <span class="token keyword">public</span> <span class="token class-name">TestCallable</span><span class="token punctuation">(</span><span class="token class-name">String</span> url<span class="token punctuation">,</span> <span class="token class-name">String</span> name<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>url <span class="token operator">=</span> url<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+    
+    <span class="token keyword">public</span> <span class="token class-name">Boolean</span> <span class="token function">call</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token comment">//实现的功能</span>
+      <span class="token keyword">return</span> <span class="token boolean">true</span>；
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h2 id="线程状态"><a href="#线程状态" class="headerlink" title="线程状态"></a>线程状态</h2><h2 id="线程同步"><a href="#线程同步" class="headerlink" title="线程同步"></a>线程同步</h2><h2 id="线程通信问题"><a href="#线程通信问题" class="headerlink" title="线程通信问题"></a>线程通信问题</h2><h2 id="高级主题"><a href="#高级主题" class="headerlink" title="高级主题"></a>高级主题</h2>
                 
             </div>
             <hr/>
@@ -622,7 +567,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://jameszcx98.github.io/2021/08/28/design-mode/">https://jameszcx98.github.io/2021/08/28/design-mode/</a>
+                    <a href="https://jameszcx98.github.io/2021/11/14/multithreading/">https://jameszcx98.github.io/2021/11/14/multithreading/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -659,11 +604,7 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/">
-                                    <span class="chip bg-color">编程技巧</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -1099,9 +1040,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/11/14/multithreading/">
                     <div class="card-image">
@@ -1119,9 +1061,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-11-14
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-14
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -1130,6 +1072,7 @@
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
@@ -1140,13 +1083,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/08/04/java/">
+                <a href="/2021/08/28/design-mode/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="java">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="design-mode">
                         
-                        <span class="card-title">java</span>
+                        <span class="card-title">design-mode</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1157,14 +1100,14 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-04
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-28
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/java/" class="post-category">
-                                    java
+                            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-category">
+                                    设计模式
                                 </a>
                             
                             
@@ -1174,8 +1117,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">
-                        <span class="chip bg-color">编程语言</span>
+                    <a href="/tags/%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/">
+                        <span class="chip bg-color">编程技巧</span>
                     </a>
                     
                 </div>

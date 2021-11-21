@@ -6,7 +6,7 @@
   <link href="https://jameszcx98.github.io/atom.xml" rel="self"/>
   
   <link href="https://jameszcx98.github.io/"/>
-  <updated>2021-09-05T13:09:44.271Z</updated>
+  <updated>2021-11-21T10:41:56.039Z</updated>
   <id>https://jameszcx98.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>multithreading</title>
+    <link href="https://jameszcx98.github.io/2021/11/14/multithreading/"/>
+    <id>https://jameszcx98.github.io/2021/11/14/multithreading/</id>
+    <published>2021-11-14T08:42:17.000Z</published>
+    <updated>2021-11-21T10:41:56.039Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;多线程和并发编程&quot;&gt;&lt;a href=&quot;#多线程和并发编程&quot; class=&quot;headerlink&quot; title=&quot;多线程和并发编程&quot;&gt;&lt;/a&gt;多线程和并发编程&lt;/h1&gt;&lt;h2 id=&quot;线程简介&quot;&gt;&lt;a href=&quot;#线程简介&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>design-mode</title>
